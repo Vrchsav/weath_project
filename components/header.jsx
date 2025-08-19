@@ -15,10 +15,8 @@ import {
 import Link from "next/link";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Badge } from "./ui/badge";
-import { checkUser } from "@/lib/checkUser";
 
-const Header = async () => {
-  await checkUser();
+const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 

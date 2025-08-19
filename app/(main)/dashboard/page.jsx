@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { redirect } from "next/navigation";
 import { getUserAccounts } from "@/actions/dashboard";
 import { getDashboardData } from "@/actions/dashboard";
 import { getCurrentBudget } from "@/actions/budget";
@@ -8,8 +9,16 @@ import { BudgetProgress } from "./_components/budget-progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import { DashboardOverview } from "./_components/transaction-overview";
+import { checkUser } from "@/lib/checkUser";
 
 export default async function DashboardPage() {
+  // Ensure user exists in database
+  const user = await checkUser();
+  if (!user) {
+    // Redirect to onboarding if user creation failed
+    redirect("/onboarding");
+  }
+
   const [accounts, transactions] = await Promise.all([
     getUserAccounts(),
     getDashboardData(),

@@ -47,7 +47,8 @@ export async function getUserAccounts() {
 
     return serializedAccounts;
   } catch (error) {
-    console.error(error.message);
+    console.error("Error in getUserAccounts:", error.message);
+    return [];
   }
 }
 
